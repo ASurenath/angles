@@ -12,6 +12,7 @@ function Intersect() {
   const [y, setY] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [ySign, setYSign] = useState(1);
+  const [pairType, setPairType] = useState("Vertical");
   useEffect(() => {
     setX(Math.cos((angle * Math.PI) / 180));
     setY(Math.sin((angle * Math.PI) / 180));
@@ -151,7 +152,79 @@ function Intersect() {
   };
   return (
     <Row className="w-100">
-      <Col md={8}>
+      <Col
+        xl={4}
+        className="d-flex flex-xl-column justify-content-center align-items-center"
+      >
+        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
+          <label for="angleA-input">Angle A:</label>
+          <input
+            type="range"
+            name=""
+            id="angleA-input"
+            className="form-range w-50"
+            value={angle}
+            onChange={(e) => setAngle(e.target.value)}
+            min="0"
+            max="180"
+          />
+          <InputGroup controlId="angle-input" className="w-25">
+            <Form.Control
+              type="number"
+              value={angle}
+              onChange={(e) => {
+                if (e.target.value >= 0 && e.target.value <= 180) {
+                  setAngle(e.target.value);
+                }
+              }}
+              min={0}
+              max={180}
+            />
+            <InputGroup.Text>°</InputGroup.Text>
+          </InputGroup>
+        </div>
+        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
+          <label for="angleA-input">Angle B:</label>
+          <input
+            type="range"
+            name=""
+            id="angleA-input"
+            className="form-range w-50"
+            value={180-angle}
+            onChange={(e) => setAngle(180-e.target.value)}
+            min="0"
+            max="180"
+          />
+          <InputGroup controlId="angle-input" className="w-25">
+            <Form.Control
+              type="number"
+              value={180 - angle}
+              onChange={(e) => {
+                if (e.target.value >= 0 && e.target.value <= 180) {
+                  setAngle(180-e.target.value);
+                }
+              }}
+              min={0}
+              max={180}
+            />
+            <InputGroup.Text>°</InputGroup.Text>
+          </InputGroup>
+        </div>
+        <div>
+<h3>
+            Highlight pairs
+  
+</h3>          <Form.Select value={pairType} onChange={(e) => setPairType(e.target.value)}>
+            <option value="Vertical">Vertical</option>
+            <option value="Supplementary">Supplementary</option>
+          </Form.Select>
+          {pairType=="Vertical" &&
+           <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
+            
+            </div>}
+        </div>
+      </Col>
+      <Col xl={8}>
         <div className="angle-main" ref={outerBox}>
           <svg
             width={boxWidth}
@@ -164,27 +237,56 @@ function Intersect() {
             onMouseMove={(e) => handleDrag(e)}
             onTouchMove={(e) => handleDrag(e)}
           >
+            
+            {/* Highights */}
+            {/* <polygon id="highlightA" points={`${100*unit} ${50*unit} ${50*unit} ${50*unit} ${(50+x*50)*unit} ${(50-y*50)*unit}`} fill="yellow" /> */}
+                        {/* <polygon id="highlightB" points={`${0*unit} ${50*unit} ${50*unit} ${50*unit} ${(50+x*50)*unit} ${(50-y*50)*unit}`} fill="lightgreen"/> */}
+                        {/* <polygon id="highlightD" points={`${100*unit} ${50*unit} ${50*unit} ${50*unit} ${(50-x*50)*unit} ${(50+y*50)*unit}`} fill="pink" /> */}
+
+            {/* <path
+                id="highlightA"
+                d={`M ${(50+x*50)*unit},${(50-y*50)*unit} L ${50*unit},${50*unit} L ${100*unit},${50*unit} A ${50*unit} ${50*unit} 0 0 0 ${(50+x*50)*unit},${(50-y*50)*unit} Z`}
+                fill="yellow"
+            />
+            <path
+                id="highlightB"
+                d={`M ${0*unit},${50*unit} L ${50*unit},${50*unit} L ${(50+x*50)*unit},${(50-y*50)*unit} A ${50*unit} ${50*unit} 0 0 0 ${0*unit},${50*unit} Z`}
+                fill="lightgreen"
+            />
+            <path
+                id="highlightD"
+                d={`M ${100*unit},${50*unit} L ${50*unit},${50*unit} L ${(50-x*50)*unit},${(50+y*50)*unit} A ${50*unit} ${50*unit} 0 0 0 ${100*unit},${50*unit} Z`}
+                fill="pink"
+            />
+            <path 
+                id="highlightC" 
+                d={`M ${(50-x*50)*unit},${(50+y*50)*unit} L ${50*unit},${50*unit} L ${(0)*unit},${(50)*unit} A ${50*unit} ${50*unit} 0 0 0 ${(50-x*50)*unit},${(50+y*50)*unit} Z`}
+                fill="lightblue"
+            /> */}
+            {/* Lines */}
             <line
               id="line1"
-              x1={`${10 * unit}px`}
+              x1={`${0 * unit}px`}
               y1={`${50 * unit}px`}
-              x2={`${90 * unit}px`}
+              x2={`${100 * unit}px`}
               y2={`${50 * unit}px`}
               stroke="black"
               strokeWidth="5"
             />
             <line
               id="line2"
-              x1={`${(50 - x * 40) * unit}px`}
-              y1={`${(50 + y * 40) * unit}px`}
-              x2={`${(50 + x * 40) * unit}px`}
-              y2={`${(50 - y * 40) * unit}px`}
+              x1={`${(50 - x * 50) * unit}px`}
+              y1={`${(50 + y * 50) * unit}px`}
+              x2={`${(50 + x * 50) * unit}px`}
+              y2={`${(50 - y * 50) * unit}px`}
               stroke="black"
               strokeWidth="5"
               cursor={dragging ? "grabbing" : "grab"}
               onMouseDown={(e) => handleSetDragging(e)}
               onTouchStart={(e) => handleSetDragging(e)}
             />
+
+            {/* Curves */}
             <path
               id="angleA"
               d={`M ${(50 + 4 * x) * unit} ${(50 - y * 4) * unit} a ${
@@ -224,7 +326,6 @@ function Intersect() {
               strokeWidth="4"
               fill="none"
             />
-
             <text
               id="angleAText"
               x={`${(50 + Math.cos((angle * Math.PI) / 360) * 8) * unit}`}
@@ -334,65 +435,7 @@ function Intersect() {
           </svg>
         </div>
       </Col>
-      <Col
-        md={4}
-        className="d-flex flex-column justify-content-center align-items-center"
-      >
-        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
-          <label for="angleA-input">Angle A:</label>
-          <input
-            type="range"
-            name=""
-            id="angleA-input"
-            className="form-range w-50"
-            value={angle}
-            onChange={(e) => setAngle(e.target.value)}
-            min="0"
-            max="180"
-          />
-          <InputGroup controlId="angle-input" className="w-25">
-            <Form.Control
-              type="number"
-              value={angle}
-              onChange={(e) => {
-                if (e.target.value >= 0 && e.target.value <= 180) {
-                  setAngle(e.target.value);
-                }
-              }}
-              min={0}
-              max={180}
-            />
-            <InputGroup.Text>°</InputGroup.Text>
-          </InputGroup>
-        </div>
-        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
-          <label for="angleA-input">Angle B:</label>
-          <input
-            type="range"
-            name=""
-            id="angleA-input"
-            className="form-range w-50"
-            value={180-angle}
-            onChange={(e) => setAngle(180-e.target.value)}
-            min="0"
-            max="180"
-          />
-          <InputGroup controlId="angle-input" className="w-25">
-            <Form.Control
-              type="number"
-              value={180 - angle}
-              onChange={(e) => {
-                if (e.target.value >= 0 && e.target.value <= 180) {
-                  setAngle(180-e.target.value);
-                }
-              }}
-              min={0}
-              max={180}
-            />
-            <InputGroup.Text>°</InputGroup.Text>
-          </InputGroup>
-        </div>
-      </Col>
+      
     </Row>
   );
 }

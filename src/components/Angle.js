@@ -7,7 +7,7 @@ function Angle() {
   const [boxWidth, setBoxWidth] = useState(1);
   const [boxHeight, setBoxHeight] = useState(1);
   const [unit, setUnit] = useState(1);
-  const [angle, setAngle] = useState(45);
+  const [angle, setAngle] = useState(135);
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [dragging, setDragging] = useState(false);
@@ -148,7 +148,39 @@ function Angle() {
   };
   return (
     <Row className="w-100">
-      <Col md={8}>
+      <Col
+        xl={4}
+        className="d-flex flex-xl-column justify-content-center align-items-center"
+      >
+        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
+          <label for="angle-input">Angle:</label>
+          <input
+            type="range"
+            name=""
+            id="angle-input"
+            className="form-range w-50"
+            value={angle}
+            onChange={(e) => setAngle(e.target.value)}
+            min="0"
+            max="360"
+          />
+          <InputGroup controlId="angle-input" className="w-25">
+            <Form.Control
+              type="number"
+              value={angle}
+              onChange={(e) => {
+                if (e.target.value >= 0 && e.target.value <= 360) {
+                  setAngle(e.target.value);
+                }
+              }}
+              min={0}
+              max={359}
+            />
+            <InputGroup.Text>°</InputGroup.Text>
+          </InputGroup>
+        </div>
+      </Col>
+      <Col xl={8}>
         <div className="angle-main" ref={outerBox}>
           <svg
             width={boxWidth}
@@ -161,6 +193,8 @@ function Angle() {
             onMouseMove={(e) => handleDrag(e)}
             onTouchMove={(e) => handleDrag(e)}
           >
+            {/* Highlights */}
+            {/* Lines */}
             <line
               id="line1"
               x1={`${50 * unit}px`}
@@ -174,7 +208,7 @@ function Angle() {
               id="line2"
               x1={`${50 * unit}px`}
               y1={`${50 * unit}px`}
-              x2={`${(50 + x * 40) * unit}px`}
+              x2={`${(50 + x * 50) * unit}px`}
               y2={`${(50 - y * 40) * unit}px`}
               stroke="black"
               strokeWidth="5"
@@ -240,38 +274,7 @@ function Angle() {
           </svg>
         </div>
       </Col>
-      <Col
-        md={4}
-        className="d-flex flex-column justify-content-center align-items-center"
-      >
-        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
-          <label for="angle-input">Angle:</label>
-          <input
-            type="range"
-            name=""
-            id="angle-input"
-            className="form-range w-50"
-            value={angle}
-            onChange={(e) => setAngle(e.target.value)}
-            min="0"
-            max="360"
-          />
-          <InputGroup controlId="angle-input" className="w-25">
-            <Form.Control
-              type="number"
-              value={angle}
-              onChange={(e) => {
-                if (e.target.value >= 0 && e.target.value <= 360) {
-                  setAngle(e.target.value);
-                }
-              }}
-              min={0}
-              max={359}
-            />
-            <InputGroup.Text>°</InputGroup.Text>
-          </InputGroup>
-        </div>
-      </Col>
+      
     </Row>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Col, Row } from "react-bootstrap";
+import { Col, Form, InputGroup, Row } from "react-bootstrap";
 
 function Parallel() {
   const svgBox = useRef(null);
@@ -11,15 +11,16 @@ function Parallel() {
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [dX, setDX] = useState(0);
-  const [d, setD] = useState(10);
+  const [d, setD] = useState(12);
   const [dragging, setDragging] = useState(false);
   const [ySign, setYSign] = useState(1);
+  const [r, setR] = useState(10);
 
   useEffect(() => {
     setX(Math.cos((angle * Math.PI) / 180));
     setY(Math.sin((angle * Math.PI) / 180));
     setDX(d / Math.tan((angle * Math.PI) / 180));
-  }, [angle]);
+  }, [angle, d]);
 
   useEffect(() => {
     const updateBoxDimensions = () => {
@@ -40,7 +41,7 @@ function Parallel() {
       window.removeEventListener("resize", updateBoxDimensions);
     };
   }, [outerBox]);
-  console.log("dragging", dragging);
+  console.log(d);
   // console.log(svgBox.current.getBoundingClientRect().width);
   const handleSetDragging = (e) => {
     setDragging(true);
@@ -126,7 +127,62 @@ function Parallel() {
   };
   return (
     <Row className="w-100">
-      <Col md={8}>
+      <Col
+        xl={4}
+        className="d-flex flex-xl-column flex-lg-row flex-md-row  flex-column  justify-content-center align-items-start"
+      >
+        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
+          <label for="angle-input">Angle A :</label>
+          <input
+            type="range"
+            name=""
+            id="angle-input"
+            className="form-range w-50"
+            value={angle}
+            onChange={(e) => setAngle(e.target.value)}
+            min="0"
+            max="180"
+          />
+          <InputGroup controlId="angle-input" className="w-25">
+            <Form.Control
+              type="number"
+              className="p-0 text-center"
+              value={angle}
+              onChange={(e) => {
+                if (e.target.value >= 0 && e.target.value <= 360) {
+                  setAngle(e.target.value);
+                }
+              }}
+              min={0}
+              max={359}
+            />
+            <InputGroup.Text>°</InputGroup.Text>
+          </InputGroup>
+        </div>
+        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
+          <label for="angle-input">Distance :</label>
+          <input
+            type="range"
+            name=""
+            id="angle-input"
+            className="form-range w-50"
+            value={d}
+            onChange={(e) => setD(parseInt(e.target.value))}
+            min={8}
+            max={40}
+          />
+          <InputGroup controlId="angle-input" className="w-25 dummy invisible">
+            <Form.Control
+              type="number"
+              className="p-0 text-center "
+              min={0}
+              max={359}
+            />
+            <InputGroup.Text>°</InputGroup.Text>
+          </InputGroup>
+        </div>
+      </Col>
+      <Col xl={8}>
         <div className="angle-main" ref={outerBox}>
           <svg
             width={boxWidth}
@@ -139,30 +195,108 @@ function Parallel() {
             onMouseMove={(e) => handleDrag(e)}
             onTouchMove={(e) => handleDrag(e)}
           >
+          
+            <path
+              id="highlightA"
+              d={`M ${(50 +dX+ x * r) * unit},${(50-d - y * r) * unit} 
+              L ${(50+dX) * unit},${(50-d) * unit}
+               L ${(50+dX+r) * unit},${(50-d) * unit} 
+               A ${r * unit} ${ r * unit} 0 0 0 ${(50+dX + x * r) * unit},${(50 -d- y * r) * unit} Z`}
+              fill="pink"
+            />
+            <path
+              id="highlightB"
+              d={`M ${(50+dX-r) * unit},${(50-d) * unit} 
+              L ${(50+dX) * unit},${(50-d) * unit} 
+              L ${(50+dX + x * r) * unit},${(50-d - y * r) * unit}
+               A ${r * unit} ${r * unit} 0 0 0 ${
+                (50+dX-r) * unit
+              },${(50-d) * unit} Z`}
+              fill="lightgreen"
+            />
+            <path
+              id="highlightC"
+              d={`M ${(50 +dX- x * r) * unit},${(50-d + y * r) * unit} L ${
+                (50+dX) * unit
+              },${(50-d) * unit} L ${(50+dX-r) * unit},${(50-d) * unit} A ${r * unit} ${
+                r * unit
+              } 0 0 0 ${(50+dX - x * r) * unit},${(50-d + y * r) * unit} Z`}
+              fill="pink"
+            />
+            <path
+              id="highlightD"
+              d={`M ${(50+dX+r) * unit},${(50-d) * unit} L ${(50+dX) * unit},${(50-d) * unit} L ${
+                (50+dX - x * r) * unit
+              },${(50-d + y * r) * unit} A ${r * unit} ${r * unit} 0 0 0 ${
+                (50+dX+r) * unit
+              },${(50-d) * unit} Z`}
+              fill="lightgreen"
+            />
+            
+
+
+<path
+              id="highlightE"
+              d={`M ${(50 -dX+ x * r) * unit},${(50+d - y * r) * unit} 
+              L ${(50-dX) * unit},${(50+d) * unit}
+               L ${(50-dX+r) * unit},${(50+d) * unit} 
+               A ${r * unit} ${ r * unit} 0 0 0 ${(50-dX + x * r) * unit},${(50 +d- y * r) * unit} Z`}
+              fill="pink"
+            />
+            <path
+              id="highlightF"
+              d={`M ${(50-dX-r) * unit},${(50+d) * unit} 
+              L ${(50-dX) * unit},${(50+d) * unit} 
+              L ${(50-dX + x * r) * unit},${(50+d - y * r) * unit}
+               A ${r * unit} ${r * unit} 0 0 0 ${
+                (50-dX-r) * unit
+              },${(50+d) * unit} Z`}
+              fill="lightgreen"
+            />
+            <path
+              id="highlightG"
+              d={`M ${(50 -dX- x * r) * unit},${(50+d + y * r) * unit} L ${
+                (50-dX) * unit
+              },${(50+d) * unit} L ${(50-dX-r) * unit},${(50+d) * unit} A ${r * unit} ${
+                r * unit
+              } 0 0 0 ${(50-dX - x * r) * unit},${(50+d + y * r) * unit} Z`}
+              fill="pink"
+            />
+            <path
+              id="highlightH"
+              d={`M ${(50-dX+r) * unit},${(50+d) * unit} L ${(50-dX) * unit},${(50+d) * unit} L ${
+                (50-dX - x * r) * unit
+              },${(50+d + y * r) * unit} A ${r * unit} ${r * unit} 0 0 0 ${
+                (50-dX+r) * unit
+              },${(50+d) * unit} Z`}
+              fill="lightgreen"
+            />
+            
             <line
               id="line1"
               x1={`${0 * unit}px`}
-              y1={`${60 * unit}px`}
+              y1={`${(50 + d) * unit}px`}
               x2={`${100 * unit}px`}
-              y2={`${60 * unit}px`}
+              y2={`${(50 + d) * unit}px`}
               stroke="black"
               strokeWidth="5"
             />
+
             <line
               id="line2"
               x1={`${0 * unit}px`}
-              y1={`${40 * unit}px`}
+              y1={`${(50 - d) * unit}px`}
               x2={`${100 * unit}px`}
-              y2={`${40 * unit}px`}
+              y2={`${(50 - d) * unit}px`}
               stroke="black"
               strokeWidth="5"
             />
             <line
               id="line3"
-              x1={`${(50 - x * 50) * unit}px`}
-              y1={`${(50 + y * 50) * unit}px`}
-              x2={`${(50 + x * 50) * unit}px`}
-              y2={`${(50 - y * 50) * unit}px`}
+              x1={`${(50 - x * 65) * unit}px`}
+              y1={`${(50 + y * 65) * unit}px`}
+              x2={`${(50 + x * 65) * unit}px`}
+              y2={`${(50 - y * 65) * unit}px`}
               stroke="black"
               strokeWidth="5"
               cursor={dragging ? "grabbing" : "grab"}
@@ -395,6 +529,23 @@ function Parallel() {
                   {180 - angle}°
                 </text>
                 <text
+                  id="textB"
+                  x={`${
+                    (50 + dX - Math.cos(((180 - angle) * Math.PI) / 360) * 11) *
+                    unit
+                  }`}
+                  y={`${
+                    (50 - d - Math.sin(((180 - angle) * Math.PI) / 360) * 11) *
+                    unit
+                  }`}
+                  alignmentBaseline="middle"
+                  textAnchor="middle"
+                  fontSize={Math.max(10, 2 * unit)}
+                  fill="green"
+                >
+                  B
+                </text>
+                <text
                   id="angleFText"
                   x={`${
                     (50 - dX - Math.cos(((180 - angle) * Math.PI) / 360) * 7) *
@@ -410,6 +561,23 @@ function Parallel() {
                   fill="green"
                 >
                   {180 - angle}°
+                </text>
+                <text
+                  id="angleFText"
+                  x={`${
+                    (50 - dX - Math.cos(((180 - angle) * Math.PI) / 360) * 10) *
+                    unit
+                  }`}
+                  y={`${
+                    (50 + d - Math.sin(((180 - angle) * Math.PI) / 360) * 10) *
+                    unit
+                  }`}
+                  alignmentBaseline="middle"
+                  textAnchor="middle"
+                  fontSize={Math.max(10, 2 * unit)}
+                  fill="green"
+                >
+                  F
                 </text>
                 <text
                   id="angleDText"
@@ -429,6 +597,23 @@ function Parallel() {
                   {180 - angle}°
                 </text>
                 <text
+                  id="angleDText"
+                  x={`${
+                    (50 + dX + Math.cos(((180 - angle) * Math.PI) / 360) * 10) *
+                    unit
+                  }`}
+                  y={`${
+                    (50 - d + Math.sin(((180 - angle) * Math.PI) / 360) * 10) *
+                    unit
+                  }`}
+                  alignmentBaseline="middle"
+                  textAnchor="middle"
+                  fontSize={Math.max(10, 2 * unit)}
+                  fill="green"
+                >
+                  D
+                </text>
+                <text
                   id="angleHText"
                   x={`${
                     (50 - dX + Math.cos(((180 - angle) * Math.PI) / 360) * 7) *
@@ -445,24 +630,27 @@ function Parallel() {
                 >
                   {180 - angle}°
                 </text>
+                <text
+                  id="angleHText"
+                  x={`${
+                    (50 - dX + Math.cos(((180 - angle) * Math.PI) / 360) * 7) *
+                    unit
+                  }`}
+                  y={`${
+                    (50 + d + Math.sin(((180 - angle) * Math.PI) / 360) * 10) *
+                    unit
+                  }`}
+                  alignmentBaseline="middle"
+                  textAnchor="middle"
+                  fontSize={Math.max(10, 2 * unit)}
+                  fill="green"
+                >
+                  H
+                </text>
               </>
             )}
           </svg>
         </div>
-      </Col>
-      <Col
-        md={4}
-        className="d-flex flex-column justify-content-center align-items-center"
-      >
-        <input
-          type="range"
-          name=""
-          value={angle}
-          onChange={(e) => setAngle(e.target.value)}
-          min="0"
-          max="180"
-          id=""
-        />
       </Col>
     </Row>
   );

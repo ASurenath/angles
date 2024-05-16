@@ -6,8 +6,8 @@
 }
 
 .angle-main{
-  width:min(100vh,100vw);
-  height: min(100vh,100vw);
+  width:min(90vh,100vw);
+  height: min(90vh,100vw);
   margin: auto;
   /* min-height: 100vh; */
 
@@ -16,4 +16,10 @@
 .angle-svg{
   width: 100%;
   height: 100%;
+}
+option.title{
+font-size: large;
+}
+.title-select{
+  max-width: fit-content;
 }
