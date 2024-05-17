@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Col, Form, FormGroup, InputGroup, Row } from "react-bootstrap";
+import { Button, Col, Form, FormGroup, InputGroup, Row } from "react-bootstrap";
 
 function Angle() {
   const svgBox = useRef(null);
@@ -12,6 +12,7 @@ function Angle() {
   const [y, setY] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [angleType, setAngleType] = useState("Acute");
+
   useEffect(() => {
     setX(Math.cos((angle * Math.PI) / 180));
     setY(Math.sin((angle * Math.PI) / 180));
@@ -51,8 +52,6 @@ function Angle() {
       window.removeEventListener("resize", updateBoxDimensions);
     };
   }, [outerBox]);
-  console.log("dragging", dragging);
-  // console.log(svgBox.current.getBoundingClientRect().width);
   const handleDrag = (e) => {
     // e.preventDefault()
     if (dragging) {
@@ -63,11 +62,9 @@ function Angle() {
         cursorX = e.clientX - svgRect.left;
         cursorY = e.clientY - svgRect.top;
         dy = Math.sign(e.movementY);
-        console.log(e);
       } else if (e.type === "touchmove") {
         cursorX = e.changedTouches[0].clientX - svgRect.left;
         cursorY = e.changedTouches[0].clientY - svgRect.top;
-        console.log(e.changedTouches[0]);
         dy = Math.sign(e.changedTouches[0].movementY);
       }
       if (50 * unit - cursorY == 0) {
@@ -131,26 +128,31 @@ function Angle() {
             )
           );
         }
-      }
-      console.log(
-        Math.floor(
-          (180 * Math.atan((50 * unit - cursorY) / (cursorX - 50 * unit))) /
-            Math.PI
-        ),
-        180 +
-          Math.floor(
-            (180 * Math.atan((50 * unit - cursorY) / (cursorX - 50 * unit))) /
-              Math.PI
-          )
-      );
-      console.log(svgRect.left, svgRect.top, cursorX, cursorY);
+            }
     }
   };
+const rotateTime=1000
+const handleSetAngle = (newAngle) => {
+  let oldAngle=angle
+  let time = 0;
+    return new Promise((resolve) => {
+      const interval = setInterval(() => {
+        if (time >= rotateTime) {
+          setAngle(newAngle);
+          clearInterval(interval);
+          resolve();
+        } else {
+          setAngle((prevAngle) => prevAngle + ((newAngle - oldAngle) * 50) / rotateTime);
+          time += 50;
+        }
+      }, 50);
+    });
+}
   return (
     <Row className="w-100">
       <Col
         xl={4}
-        className="d-flex flex-xl-column justify-content-center align-items-center"
+        className="d-flex flex-column justify-content-center align-items-center"
       >
         <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
           <label for="angle-input">Angle:</label>
@@ -179,6 +181,13 @@ function Angle() {
             <InputGroup.Text>°</InputGroup.Text>
           </InputGroup>
         </div>
+        <div className="d-flex flex-xl-column justify-content-center align-items-center">
+          <Button variant="outline-primary" onClick={() => handleSetAngle(0)} active={angleType=='Zero'} className="m-2">Zero Angle</Button>
+          <Button variant="outline-primary" onClick={() => handleSetAngle(90)} active={angleType=='Right'} className="m-2">Right Angle</Button>
+          <Button variant="outline-primary" onClick={() => handleSetAngle(180)} active={angleType=='Ztraight'} className="m-2">Straight Angle</Button>
+          <Button variant="outline-primary" onClick={() => handleSetAngle(360)} active={angleType=='Full'} className="m-2">Full Angle</Button>
+  
+        </div>
       </Col>
       <Col xl={8}>
         <div className="angle-main" ref={outerBox}>
@@ -186,7 +195,7 @@ function Angle() {
             width={boxWidth}
             xmlns="http://www.w3.org/2000/svg"
             ref={svgBox}
-            className="angle-svg"
+            className="angle-svg "
             cursor={dragging ? "grabbing" : "default"}
             onMouseUp={() => setDragging(false)}
             onTouchEnd={() => setDragging(false)}
@@ -199,7 +208,7 @@ function Angle() {
               id="line1"
               x1={`${50 * unit}px`}
               y1={`${50 * unit}px`}
-              x2={`${90 * unit}px`}
+              x2={`${100 * unit}px`}
               y2={`${50 * unit}px`}
               stroke="black"
               strokeWidth="5"
@@ -270,6 +279,16 @@ function Angle() {
               fill="blue"
             >
               {angleType} angle
+            </text>
+            <text
+              x={35 * unit}
+              y={25 * unit}
+              alignmentBaseline="middle"
+              textAnchor="middle"
+              fontSize={Math.max(15, 3 * unit)}
+              fill="blue"
+              className="animated1"
+            >← Drag this line
             </text>
           </svg>
         </div>

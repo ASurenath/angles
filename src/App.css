@@ -1,3 +1,4 @@
+
 .App{
   min-height: 100vh;
   width: 100%;
@@ -6,8 +7,8 @@
 }
 
 .angle-main{
-  width:min(90vh,100vw);
-  height: min(90vh,100vw);
+  width:min(750px , 95%);
+  aspect-ratio: 1 / 1;
   margin: auto;
   /* min-height: 100vh; */
 
@@ -22,4 +23,33 @@ font-size: large;
 }
 .title-select{
   max-width: fit-content;
+}
+*{
+  user-select: none;
+}
+label{
+  text-wrap: nowrap;
+}
+.animated1{
+  /* transition: 1s ease; */
+  animation: shake 3s 1 ease-in-out;
+  opacity: 0;
+}
+
+@keyframes shake {
+  0%{
+    opacity: 1;
+  }
+  33%{
+    transform: scale(1.02);
+    opacity: 0.6;
+  }
+  66%{
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  100%{
+    transform: scale(1.02);
+    opacity: 0;
+  }
 }

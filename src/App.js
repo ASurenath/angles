@@ -11,14 +11,15 @@ import Triangle from './components/Triangle';
 function App() {
   const [module, setModule] = useState(0);
   return (
-    <div className="App p-3">
-      <div className='d-flex justify-content-center align-items-center'>
+    <div className="App">
+      <h1 className='text-center'>Angles</h1>
+      <div className='d-flex justify-content-center align-items-center p-3'>
         <label for="module" className="fs-3 text-center">Select module :&nbsp; </label>
         <Form.Select className="w-100 fs-3 text-center title-select" size='lg' onChange={(e) => setModule(e.target.value)} value={module} id='module'>
           <option value={0}>Basic types of angles</option>
           <option value={1}>Intersecting lines</option>
           <option value={2}>Line intersecting parallel lines</option>
-          <option value={3}>Triangle</option>
+          <option value={3}>Types of triangles based on angles</option>
         </Form.Select>
       </div>
       {module == 0 && <Angle></Angle>}

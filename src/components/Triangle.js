@@ -20,10 +20,10 @@ function Triangle() {
   const [bcCap, setBcCap] = useState([]);
   const [caCap, setCaCap] = useState([]);
   const [sign, setSign] = useState(1);
-
   const [draggingA, setDraggingA] = useState(false);
   const [draggingB, setDraggingB] = useState(false);
   const [draggingC, setDraggingC] = useState(false);
+  const [triangleType, setTriangleType] = useState("Acute");
 
   useEffect(() => {
     setAbCap([
@@ -42,13 +42,23 @@ function Triangle() {
   useEffect(() => {
     setSign(Math.sign(abCap[1] * bcCap[0] - abCap[0] * bcCap[1]));
   }, [abCap, bcCap]);
+
   useEffect(() => {
     setAngleA(Math.round(Math.acos(-abCap[0]*caCap[0] - abCap[1]*caCap[1]) * 180 / Math.PI));
     setAngleB(Math.round(Math.acos(-abCap[0]*bcCap[0] - abCap[1]*bcCap[1]) * 180 / Math.PI));
     setAngleC(180-Math.round(Math.acos(-abCap[0]*caCap[0] - abCap[1]*caCap[1]) * 180 / Math.PI)-Math.round(Math.acos(-abCap[0]*bcCap[0] - abCap[1]*bcCap[1]) * 180 / Math.PI));
   }, [abCap, bcCap, caCap]);
-
-  console.log(sign);
+  useEffect(() => {
+    if(angleA==90 || angleB==90 || angleC==90){
+      setTriangleType("Right");
+    }
+    else if(angleA>90 || angleB>90 || angleC>90){
+      setTriangleType("Obtuse"); 
+    }
+    else if(angleA<90 && angleB<90 && angleC<90){
+      setTriangleType("Acute");
+    }
+  }, [angleA, angleB, angleC]);
 
   useEffect(() => {
     const updateBoxDimensions = () => {
@@ -69,7 +79,6 @@ function Triangle() {
       window.removeEventListener("resize", updateBoxDimensions);
     };
   }, [outerBox]);
-  // console.log(svgBox.current.getBoundingClientRect().width);
   const handleDrag = (e) => {
     // e.preventDefault()
     if (draggingA || draggingB || draggingC) {
@@ -280,42 +289,41 @@ function Triangle() {
           {angleC}°
         </text>
 
-        {/* (
-              <path
-                id="angle1"
-                d={`M ${(50 + 4 * x) * unit} ${(50 - y * 4) * unit} a ${
-                  4 * unit
-                } ${4 * unit} 0 ${angle > 180 ? 1 : 0} 1  ${
-                  (1 - x) * 4 * unit
-                } ${4 * y * unit}`}
-                stroke="blue"
-                strokeWidth="4"
-                fill="none"
-              />
-            ) */}
-
-        {/* <text
-              id="angle1Text"
-              x={`${(50 + Math.cos((angle * Math.PI) / 360) * 8) * unit}`}
-              y={`${(50 - Math.sin((angle * Math.PI) / 360) * 8) * unit}`}
+        <text
+          id="triangleType"
+          x={`${50 * unit}`}
+          y={`${90 * unit}`}
+          alignmentBaseline="middle"
+          textAnchor="middle"
+          fontSize={Math.max(15, 5 * unit)}
+          fill="blue"
+        >
+          {triangleType} triangle
+        </text>
+        <text
+          id="triangleTypeDescription"
+          x={`${50 * unit}`}
+          y={`${95 * unit}`}
+          alignmentBaseline="middle"
+          textAnchor="middle"
+          fontSize={Math.max(10, 3 * unit)}
+          fill="blue"
+        >
+          {triangleType=="Acute"&&"All angles less that 90°"}
+          {triangleType=="Obtuse"&&"One angle greater that 90°"}
+          {triangleType=="Right"&&"One angle equals to 90°"}
+        </text>
+        {/* instruction */}
+        <text
+              x={70 * unit}
+              y={10 * unit}
               alignmentBaseline="middle"
               textAnchor="middle"
-              fontSize={Math.max(10, 3 * unit)}
+              fontSize={Math.max(15, 3 * unit)}
               fill="blue"
-            >
-              {angle}°
+              className="animated1"
+            >← Drag vertices
             </text>
-            <text
-              id="angle1Text"
-              x={`${(50 + Math.cos((angle * Math.PI) / 360) * 20) * unit}`}
-              y={`${(50 - Math.sin((angle * Math.PI) / 360) * 20) * unit}`}
-              alignmentBaseline="middle"
-              textAnchor="middle"
-              fontSize={Math.max(10, 3 * unit)}
-              fill="blue"
-            >
-              {angleType} angle
-            </text> */}
       </svg>
     </div>
   );
