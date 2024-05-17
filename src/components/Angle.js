@@ -171,6 +171,7 @@ const handleSetAngle = (newAngle) => {
           <InputGroup controlId="angle-input" className="w-25">
             <Form.Control
               type="number"
+              className="px-0 text-center"
               value={angle}
               onChange={(e) => {
                 if (e.target.value >= 0 && e.target.value <= 360) {
@@ -227,6 +228,7 @@ const handleSetAngle = (newAngle) => {
               onMouseDown={() => setDragging(true)}
               onTouchStart={() => setDragging(true)}
             />
+            
             {angle == 360 ? (
               <circle
                 r={4 * unit}
