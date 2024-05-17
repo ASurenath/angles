@@ -184,7 +184,7 @@ const handleSetAngle = (newAngle) => {
         <div className="d-flex flex-xl-column justify-content-center align-items-center">
           <Button variant="outline-primary" onClick={() => handleSetAngle(0)} active={angleType=='Zero'} className="m-2">Zero Angle</Button>
           <Button variant="outline-primary" onClick={() => handleSetAngle(90)} active={angleType=='Right'} className="m-2">Right Angle</Button>
-          <Button variant="outline-primary" onClick={() => handleSetAngle(180)} active={angleType=='Ztraight'} className="m-2">Straight Angle</Button>
+          <Button variant="outline-primary" onClick={() => handleSetAngle(180)} active={angleType=='Straight'} className="m-2">Straight Angle</Button>
           <Button variant="outline-primary" onClick={() => handleSetAngle(360)} active={angleType=='Full'} className="m-2">Full Angle</Button>
   
         </div>
