@@ -55,12 +55,12 @@ function Angle() {
     };
   }, [outerBox]);
   const handleDrag = (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     if (dragging) {
       let cursorX, cursorY, dy;
       const svgRect = svgBox.current.getBoundingClientRect();
       if (e.type === "mousemove") {
-        e.preventDefault();
+        // e.preventDefault();
         cursorX = e.clientX - svgRect.left;
         cursorY = e.clientY - svgRect.top;
         dy = Math.sign(e.movementY);

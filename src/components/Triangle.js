@@ -80,15 +80,16 @@ function Triangle() {
     };
   }, [outerBox]);
   const handleDrag = (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     if (draggingA || draggingB || draggingC) {
       let cursorX, cursorY, dy;
       const svgRect = svgBox.current.getBoundingClientRect();
       if (e.type === "mousemove") {
-        e.preventDefault();
+        // e.preventDefault();
         cursorX = e.clientX - svgRect.left;
         cursorY = e.clientY - svgRect.top;
       } else if (e.type === "touchmove") {
+        // e.preventDefault()
         cursorX = e.changedTouches[0].clientX - svgRect.left;
         cursorY = e.changedTouches[0].clientY - svgRect.top;
       }

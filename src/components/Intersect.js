@@ -92,12 +92,12 @@ function Intersect() {
     }
   };
   const handleDrag = (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     if (dragging) {
       let cursorX, cursorY;
       const svgRect = svgBox.current.getBoundingClientRect();
       if (e.type === "mousemove") {
-        e.preventDefault();
+        // e.preventDefault();
         cursorX = e.clientX - svgRect.left;
         cursorY = e.clientY - svgRect.top;
       } else if (e.type === "touchmove") {
