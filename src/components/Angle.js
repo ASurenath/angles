@@ -269,7 +269,7 @@ const handleSetAngle = (newAngle) => {
               fontSize={Math.max(10, 3 * unit)}
               fill="blue"
             >
-              {angle}°
+              {parseInt(angle)}°
             </text>
             <text
               id="angle1Text"
