@@ -228,6 +228,18 @@ const handleSetAngle = (newAngle) => {
               onMouseDown={() => setDragging(true)}
               onTouchStart={() => setDragging(true)}
             />
+            <line
+              id="line2dummy"
+              x1={`${50 * unit}px`}
+              y1={`${50 * unit}px`}
+              x2={`${(50 + x * 50) * unit}px`}
+              y2={`${(50 - y * 40) * unit}px`}
+              stroke="transparent"
+              strokeWidth="50"
+              cursor={dragging ? "grabbing" : "grab"}
+              onMouseDown={() => setDragging(true)}
+              onTouchStart={() => setDragging(true)}
+            />
             
             {angle == 360 ? (
               <circle

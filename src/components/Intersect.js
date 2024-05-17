@@ -401,6 +401,18 @@ function Intersect() {
               onMouseDown={(e) => handleSetDragging(e)}
               onTouchStart={(e) => handleSetDragging(e)}
             />
+            <line
+              id="line2dummy"
+              x1={`${(50 - x * 50) * unit}px`}
+              y1={`${(50 + y * 50) * unit}px`}
+              x2={`${(50 + x * 50) * unit}px`}
+              y2={`${(50 - y * 50) * unit}px`}
+              stroke="transparent"
+              strokeWidth="50"
+              cursor={dragging ? "grabbing" : "grab"}
+              onMouseDown={(e) => handleSetDragging(e)}
+              onTouchStart={(e) => handleSetDragging(e)}
+            />
             {/* Curves */}
             {show.curve && (
               <>

@@ -162,7 +162,16 @@ function Triangle() {
           onMouseDown={() => setDraggingA(true)}
           onTouchStart={() => setDraggingA(true)}
         ></circle>
-
+<circle
+          id="pointA"
+          cx={`${Xa * unit}`}
+          cy={`${Ya * unit}`}
+          r={`${10 * unit}`}
+          cursor={draggingA ? "grabbing" : "grab"}
+          onMouseDown={() => setDraggingA(true)}
+          onTouchStart={() => setDraggingA(true)}
+          fill="transparent"
+        ></circle>
         <circle
           id="pointB"
           cx={`${Xb * unit}`}
@@ -171,6 +180,16 @@ function Triangle() {
           cursor={draggingB ? "grabbing" : "grab"}
           onMouseDown={() => setDraggingB(true)}
           onTouchStart={() => setDraggingB(true)}
+        ></circle>
+         <circle
+          id="pointBdummy"
+          cx={`${Xb * unit}`}
+          cy={`${Yb * unit}`}
+          r={`${1 * unit}`}
+          cursor={draggingB ? "grabbing" : "grab"}
+          onMouseDown={() => setDraggingB(true)}
+          onTouchStart={() => setDraggingB(true)}
+          fill="transparent"
         ></circle>
 
         <circle
@@ -181,6 +200,16 @@ function Triangle() {
           cursor={draggingC ? "grabbing" : "grab"}
           onMouseDown={() => setDraggingC(true)}
           onTouchStart={() => setDraggingC(true)}
+        ></circle>
+        <circle
+          id="pointCdummy"
+          cx={`${Xc * unit}`}
+          cy={`${Yc * unit}`}
+          r={`${1 * unit}`}
+          cursor={draggingC ? "grabbing" : "grab"}
+          onMouseDown={() => setDraggingC(true)}
+          onTouchStart={() => setDraggingC(true)}
+          fill="transparent"
         ></circle>
         <text
           id="textA"

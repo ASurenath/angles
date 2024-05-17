@@ -551,6 +551,18 @@ function Parallel() {
               onMouseDown={(e) => handleSetDragging(e)}
               onTouchStart={(e) => handleSetDragging(e)}
             />
+            <line
+              id="line3dummy"
+              x1={`${(50 - x * 65) * unit}px`}
+              y1={`${(50 + y * 65) * unit}px`}
+              x2={`${(50 + x * 65) * unit}px`}
+              y2={`${(50 - y * 65) * unit}px`}
+              stroke="transparent"
+              strokeWidth="50"
+              cursor={dragging ? "grabbing" : "grab"}
+              onMouseDown={(e) => handleSetDragging(e)}
+              onTouchStart={(e) => handleSetDragging(e)}
+            />
             {angle != 0 && (
               <>
                 {/* curves */}
