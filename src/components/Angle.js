@@ -16,11 +16,13 @@ function Angle() {
   useEffect(() => {
     setX(Math.cos((angle * Math.PI) / 180));
     setY(Math.sin((angle * Math.PI) / 180));
-    if (angle < 90) {
-      setAngleType("Acute");
-    } else if (angle == 0) {
+    if (angle == 0) {
       setAngleType("Zero");
-    } else if (angle == 90) {
+    }
+    else if (angle < 90) {
+      setAngleType("Acute");
+    }  
+     else if (angle == 90) {
       setAngleType("Right");
     } else if (angle > 90 && angle < 180) {
       setAngleType("Obtuse");
