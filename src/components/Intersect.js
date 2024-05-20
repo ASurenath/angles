@@ -295,9 +295,7 @@ function Intersect() {
             </Button>
           </div>
           <div className="pt-4">
-            <label htmlFor="btn-group">
-              <i className="fa-regular fa-eye-slash"></i> :
-            </label>
+            <p>Show/hide:</p>
             <ButtonGroup
               className="me-2"
               aria-label="Button group"
@@ -307,22 +305,25 @@ function Intersect() {
                 variant="outline-primary"
                 onClick={() => setShow({ ...show, letter: !show.letter })}
                 active={show.letter}
+                title="Angle name"
               >
-                A
+                <span style={{textDecoration:`${show.letter ? "none" : "line-through"}`}}>&nbsp;&nbsp;A&nbsp;&nbsp;</span>
               </Button>
               <Button
                 variant="outline-primary"
                 onClick={() => setShow({ ...show, angle: !show.angle })}
                 active={show.angle}
+                title="Angle value"
               >
-                45°
+                <span style={{textDecoration:`${show.angle ? "none" : "line-through"}`}}>&nbsp;&nbsp;45°&nbsp;&nbsp;</span>
               </Button>
               <Button
                 variant="outline-primary"
                 onClick={() => setShow({ ...show, curve: !show.curve })}
                 active={show.curve}
+                title="Angle curve"
               >
-                {angleSvg}
+                <span style={{textDecoration:`${show.curve ? "none" : "line-through"}`}}>&nbsp;&nbsp;&#9693;&nbsp;&nbsp;</span>
               </Button>
             </ButtonGroup>
           </div>
