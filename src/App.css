@@ -11,8 +11,9 @@
   aspect-ratio: 1 / 1;
   margin: auto;
   /* min-height: 100vh; */
-
+touch-action:none;
 }
+
 
 .angle-svg{
   width: 100%;

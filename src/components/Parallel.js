@@ -63,13 +63,13 @@ function Parallel() {
   }, [outerBox]);
   const angleSvg = (
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-      <line x1="0" y1="15" x2="20" y2="15" stroke="blue" stroke-width="1" />
-      <line x1="0" y1="15" x2="9" y2="0" stroke="blue" stroke-width="1" />
+      <line x1="0" y1="15" x2="20" y2="15" stroke="blue" strokeWidth="1" />
+      <line x1="0" y1="15" x2="9" y2="0" stroke="blue" strokeWidth="1" />
       <path
         d="M5,5 A5,5 0 0,1 10,15"
         fill="none"
         stroke="blue"
-        stroke-width="1"
+        strokeWidth="1"
       />
     </svg>
   );
@@ -98,12 +98,12 @@ function Parallel() {
     }
   };
   const handleDrag = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     if (dragging) {
       let cursorX, cursorY;
       const svgRect = svgBox.current.getBoundingClientRect();
       if (e.type === "mousemove") {
-        // e.preventDefault();
+        e.preventDefault();
 
         cursorX = e.clientX - svgRect.left;
         cursorY = e.clientY - svgRect.top;
@@ -157,28 +157,28 @@ function Parallel() {
     return (
       <Button
         variant="outline-primary"
-        id={`btn-${A} and ${B}`}
-        value={`${A} and ${B}`}
+        id={`btn-${A} & ${B}`}
+        value={`${A} & ${B}`}
         onClick={() => {
           let tempHighlight = highlight;
           for (let key in tempHighlight) {
             tempHighlight[key] = false;
           }
           setHighlight({ ...tempHighlight, [A]: true, [B]: true });
-          setActiveBtn(`${A} and ${B}`);
+          setActiveBtn(`${A} & ${B}`);
         }}
-        active={activeBtn === `${A} and ${B}`}
+        active={activeBtn === `${A} & ${B}`}
       >
-        {`${A} and ${B}`}
+        {`${A} & ${B}`}
       </Button>
     );
   };
   return (
     <Row className="w-100">
       <Col xl={4} md={5} className="">
-        <div className="d-flex flex-md-column justify-content-start align-items-center px-2 px-lg-5">
-          <div className="d-flex justify-content-evenly align-items-center w-100 p-lg-3 pt-xl-5">
-            <label for="angleA-input">∠ A:</label>
+        <div className="d-flex flex-column justify-content-start align-items-center px-2 px-lg-5">
+          <div className="d-flex justify-content-between align-items-center flex-wrap w-100 p-lg-3 pt-xl-5">
+            <label htmlFor="angleA-input">∠ A:</label>
             <input
               type="range"
               name=""
@@ -203,8 +203,8 @@ function Parallel() {
             />
             <p className="py-0 fs-3">°</p>
           </div>
-          <div className="d-flex justify-content-evenly align-items-center w-100  p-lg-3">
-            <label for="angleA-input">∠ B:</label>
+          <div className="d-flex justify-content-between align-items-center w-100  p-lg-3">
+            <label htmlFor="angleB-input">∠ B:</label>
             <input
               type="range"
               name=""
@@ -232,7 +232,7 @@ function Parallel() {
         </div>
         <div className="d-flex flex-md-column justify-content-start align-items-center px-2 px-lg-5">
           <div className="d-flex justify-content-evenly align-items-center w-100  p-lg-3">
-            <label for="angle-input">Distance :</label>
+            <label htmlFor="angle-input">Distance :</label>
             <input
               type="range"
               name=""
@@ -291,7 +291,7 @@ function Parallel() {
             </Button>
           </div>
 
-          <label for="pairType" className="mt-3">
+          <label htmlFor="pairType" className="mt-3">
             Select pair type:
           </label>
           <Form.Select
@@ -370,8 +370,8 @@ function Parallel() {
             </Button>
           </div>
           <div className="pt-4">
-            <label for="btn-group">
-              <i class="fa-regular fa-eye-slash"></i> :
+            <label htmlFor="btn-group">
+              <i className="fa-regular fa-eye-slash"></i> :
             </label>
             <ButtonGroup
               className="me-2"
@@ -576,7 +576,7 @@ function Parallel() {
                         (1 - x) * 4 * unit
                       } ${4 * y * unit}`}
                       stroke="blue"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                     <path
@@ -587,7 +587,7 @@ function Parallel() {
                         -5.5 * y * unit
                       }`}
                       stroke="green"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                     <path
@@ -598,7 +598,7 @@ function Parallel() {
                         -(1 - x) * 4.5 * unit
                       } ${-(4.5 * y) * unit}`}
                       stroke="blue"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                     <path
@@ -609,7 +609,7 @@ function Parallel() {
                         5 * y * unit
                       }`}
                       stroke="green"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                     <path
@@ -620,7 +620,7 @@ function Parallel() {
                         (1 - x) * 4 * unit
                       } ${4 * y * unit}`}
                       stroke="blue"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                     <path
@@ -631,7 +631,7 @@ function Parallel() {
                         -5.5 * y * unit
                       }`}
                       stroke="green"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                     <path
@@ -642,7 +642,7 @@ function Parallel() {
                         -(1 - x) * 4.5 * unit
                       } ${-(4.5 * y) * unit}`}
                       stroke="blue"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                     <path
@@ -653,7 +653,7 @@ function Parallel() {
                         5 * y * unit
                       }`}
                       stroke="green"
-                      strokeWidth="4"
+                      strokeWidth="2"
                       fill="none"
                     />
                   </>
@@ -734,6 +734,22 @@ function Parallel() {
                       {180 - angle}°
                     </text>
                     <text
+                      id="angleEtext"
+                      x={`${
+                        (50 - dX + Math.cos((angle * Math.PI) / 360) * 6) *
+                        unit
+                      }`}
+                      y={`${
+                        (50 + d - Math.sin((angle * Math.PI) / 360) * 6) * unit
+                      }`}
+                      alignmentBaseline="middle"
+                      textAnchor="middle"
+                      fontSize={Math.max(10, 3 * unit)}
+                      fill="blue"
+                    >
+                      {180 - angle}°
+                    </text>
+                    <text
                       id="angleFText"
                       x={`${
                         (50 -
@@ -754,24 +770,7 @@ function Parallel() {
                     >
                       {180 - angle}°
                     </text>
-                    {/* <text
-                    id="angleFtext"
-                    x={`${
-                      (50 - dX - Math.cos(((180 - angle) * Math.PI) / 360) * 7) *
-                      unit
-                    }`}
-                    y={`${
-                      (50 + d - Math.sin(((180 - angle) * Math.PI) / 360) * 7) *
-                      unit
-                    }`}
-                    alignmentBaseline="middle"
-                    textAnchor="middle"
-                    fontSize={Math.max(10, 3 * unit)}
-                    fill="green"
-                  >
-                    {180 - angle}°
-                  </text> */}
-
+                   
                     <text
                       id="angleGText"
                       x={`${
@@ -974,6 +973,9 @@ function Parallel() {
               fill="blue"
               className="animated1"
             >Drag this line →
+            </text>
+            <text>
+              
             </text>
 
           </svg>

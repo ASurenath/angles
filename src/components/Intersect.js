@@ -57,13 +57,13 @@ function Intersect() {
   }, [outerBox]);
   const angleSvg = (
     <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg">
-      <line x1="0" y1="15" x2="20" y2="15" stroke="blue" stroke-width="1" />
-      <line x1="0" y1="15" x2="9" y2="0" stroke="blue" stroke-width="1" />
+      <line x1="0" y1="15" x2="20" y2="15" stroke="blue" strokeWidth="1" />
+      <line x1="0" y1="15" x2="9" y2="0" stroke="blue" strokeWidth="1" />
       <path
         d="M5,5 A5,5 0 0,1 10,15"
         fill="none"
         stroke="blue"
-        stroke-width="1"
+        strokeWidth="1"
       />
     </svg>
   );
@@ -92,12 +92,12 @@ function Intersect() {
     }
   };
   const handleDrag = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     if (dragging) {
       let cursorX, cursorY;
       const svgRect = svgBox.current.getBoundingClientRect();
       if (e.type === "mousemove") {
-        // e.preventDefault();
+        e.preventDefault();
         cursorX = e.clientX - svgRect.left;
         cursorY = e.clientY - svgRect.top;
       } else if (e.type === "touchmove") {
@@ -138,9 +138,9 @@ function Intersect() {
   return (
     <Row className="w-100">
       <Col xl={4} md={5} className="">
-        <div className="d-flex flex-md-column justify-content-start align-items-center px-2 px-lg-5">
-          <div className="d-flex justify-content-evenly align-items-center w-100 p-lg-3 pt-xl-5">
-            <label for="angleA-input">∠ A:</label>
+        <div className="d-flex flex-column justify-content-start align-items-center px-3 px-lg-5">
+          <div className="d-flex justify-content-between align-items-center w-100 p-lg-3 pt-xl-5 p-1">
+            <label htmlFor="angleA-input">∠ A:</label>
             <input
               type="range"
               name=""
@@ -151,22 +151,24 @@ function Intersect() {
               min="0"
               max="180"
             />
-            <Form.Control
-              className="w-25 px-0 text-center"
-              type="number"
-              value={angle}
-              onChange={(e) => {
-                if (e.target.value >= 0 && e.target.value <= 180) {
-                  setAngle(e.target.value);
-                }
-              }}
-              min={0}
-              max={180}
-            />
-            <p className="py-0 fs-3">°</p>
+            <div className="d-flex">
+              <Form.Control
+                className=" px-0 text-center"
+                type="number"
+                value={angle}
+                onChange={(e) => {
+                  if (e.target.value >= 0 && e.target.value <= 180) {
+                    setAngle(e.target.value);
+                  }
+                }}
+                min={0}
+                max={180}
+              />
+              <p className="py-0 fs-3">°</p>
+            </div>
           </div>
-          <div className="d-flex justify-content-evenly align-items-center w-100  p-lg-3">
-            <label for="angleA-input">∠ B:</label>
+          <div className="d-flex justify-content-between align-items-center w-100  p-lg-3 p-1">
+            <label htmlFor="angleB-input">∠ B:</label>
             <input
               type="range"
               name=""
@@ -177,19 +179,21 @@ function Intersect() {
               min="0"
               max="180"
             />
-            <Form.Control
-              className="w-25 px-0 text-center"
-              type="number"
-              value={180 - angle}
-              onChange={(e) => {
-                if (e.target.value >= 0 && e.target.value <= 180) {
-                  setAngle(180 - e.target.value);
-                }
-              }}
-              min={0}
-              max={180}
-            />
-            <p className="py-0 fs-3">°</p>{" "}
+            <div className="d-flex">
+              <Form.Control
+                className=" px-0 text-center"
+                type="number"
+                value={180 - angle}
+                onChange={(e) => {
+                  if (e.target.value >= 0 && e.target.value <= 180) {
+                    setAngle(180 - e.target.value);
+                  }
+                }}
+                min={0}
+                max={180}
+              />
+              <p className="py-0 fs-3">°</p>
+            </div>
           </div>
         </div>
         <div className="p-2 p-lg-5">
@@ -199,26 +203,26 @@ function Intersect() {
             <Button
               variant="outline-primary"
               id="tbg-btn-1"
-              value={"A and C"}
+              value={"A & C"}
               onClick={() => {
                 setHighlight({ A: true, B: false, C: true, D: false });
-                setActiveBtn("A and C");
+                setActiveBtn("A & C");
               }}
-              active={activeBtn === "A and C"}
+              active={activeBtn === "A & C"}
             >
-              A and C
+              A & C
             </Button>
             <Button
               variant="outline-primary"
               id="tbg-btn-2"
-              value={"B and D"}
+              value={"B & D"}
               onClick={() => {
                 setHighlight({ A: false, B: true, C: false, D: true });
-                setActiveBtn("B and D");
+                setActiveBtn("B & D");
               }}
-              active={activeBtn === "B and D"}
+              active={activeBtn === "B & D"}
             >
-              B and D
+              B & D
             </Button>
           </ButtonGroup>
           <h3>Adjacent Supplementary Angles:</h3>
@@ -231,50 +235,50 @@ function Intersect() {
             <Button
               variant="outline-primary"
               id="tbg-btn-3"
-              value={"A and B"}
+              value={"A & B"}
               onClick={() => {
                 setHighlight({ A: true, B: true, C: false, D: false });
-                setActiveBtn("A and B");
+                setActiveBtn("A & B");
               }}
-              active={activeBtn === "A and B"}
+              active={activeBtn === "A & B"}
             >
-              A and B
+              A & B
             </Button>
             <Button
               variant="outline-primary"
               id="tbg-btn-4"
-              value={"B and C"}
+              value={"B & C"}
               onClick={() => {
                 setHighlight({ A: false, B: true, C: true, D: false });
-                setActiveBtn("B and C");
+                setActiveBtn("B & C");
               }}
-              active={activeBtn === "B and C"}
+              active={activeBtn === "B & C"}
             >
-              B and C
+              B & C
             </Button>
             <Button
               variant="outline-primary"
               id="tbg-btn-5"
-              value={"C and D"}
+              value={"C & D"}
               onClick={() => {
                 setHighlight({ A: false, B: false, C: true, D: true });
-                setActiveBtn("C and D");
+                setActiveBtn("C & D");
               }}
-              active={activeBtn === "C and D"}
+              active={activeBtn === "C & D"}
             >
-              C and D
+              C & D
             </Button>
             <Button
               variant="outline-primary"
               id="tbg-btn-6"
-              value={"D and A"}
+              value={"D & A"}
               onClick={() => {
                 setHighlight({ A: true, B: false, C: false, D: true });
-                setActiveBtn("D and A");
+                setActiveBtn("D & A");
               }}
-              active={activeBtn === "D and A"}
+              active={activeBtn === "D & A"}
             >
-              D and A
+              D & A
             </Button>
           </ButtonGroup>
           <div className="pt-4">
@@ -291,8 +295,8 @@ function Intersect() {
             </Button>
           </div>
           <div className="pt-4">
-            <label for="btn-group">
-              <i class="fa-regular fa-eye-slash"></i> :
+            <label htmlFor="btn-group">
+              <i className="fa-regular fa-eye-slash"></i> :
             </label>
             <ButtonGroup
               className="me-2"
@@ -422,7 +426,7 @@ function Intersect() {
                     4 * unit
                   } ${4 * unit} 0 0 1  ${(1 - x) * 4 * unit} ${4 * y * unit}`}
                   stroke="blue"
-                  strokeWidth="4"
+                  strokeWidth="2"
                   fill="none"
                 />
                 <path
@@ -433,7 +437,7 @@ function Intersect() {
                     -(4.5 * y) * unit
                   }`}
                   stroke="blue"
-                  strokeWidth="4"
+                  strokeWidth="2"
                   fill="none"
                 />
                 <path
@@ -442,7 +446,7 @@ function Intersect() {
                     -5.5 * unit
                   } 0 0 1  ${(x + 1) * 5.5 * unit} ${-5.5 * y * unit}`}
                   stroke="green"
-                  strokeWidth="4"
+                  strokeWidth="2"
                   fill="none"
                 />
                 <path
@@ -451,7 +455,7 @@ function Intersect() {
                     -5 * unit
                   } 0 0 1  ${-(x + 1) * 5 * unit} ${5 * y * unit}`}
                   stroke="green"
-                  strokeWidth="4"
+                  strokeWidth="2"
                   fill="none"
                 />
               </>

@@ -55,12 +55,12 @@ function Angle() {
     };
   }, [outerBox]);
   const handleDrag = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     if (dragging) {
       let cursorX, cursorY, dy;
       const svgRect = svgBox.current.getBoundingClientRect();
       if (e.type === "mousemove") {
-        // e.preventDefault();
+        e.preventDefault();
         cursorX = e.clientX - svgRect.left;
         cursorY = e.clientY - svgRect.top;
         dy = Math.sign(e.movementY);
@@ -156,8 +156,8 @@ const handleSetAngle = (newAngle) => {
         xl={4}
         className="d-flex flex-column justify-content-center align-items-center"
       >
-        <div className="d-flex justify-content-evenly align-items-center w-100 p-3 p-lg-5">
-          <label for="angle-input">Angle:</label>
+        <div className="d-flex justify-content-evenly align-items-center flex-wrap w-100 p-3 p-lg-5">
+          <label htmlFor="angle-input">Angle:</label>
           <input
             type="range"
             name=""
@@ -168,10 +168,9 @@ const handleSetAngle = (newAngle) => {
             min="0"
             max="360"
           />
-          <InputGroup controlId="angle-input" className="w-25">
-            <Form.Control
+           <Form.Control
               type="number"
-              className="px-0 text-center"
+              className="px-0 text-center w-25"
               value={angle}
               onChange={(e) => {
                 if (e.target.value >= 0 && e.target.value <= 360) {
@@ -181,10 +180,10 @@ const handleSetAngle = (newAngle) => {
               min={0}
               max={359}
             />
-            <InputGroup.Text>°</InputGroup.Text>
-          </InputGroup>
+                        <p className="py-0 fs-3">°</p>
+
         </div>
-        <div className="d-flex flex-xl-column justify-content-center align-items-center">
+        <div className="d-flex flex-xl-column justify-content-center align-items-center flex-wrap">
           <Button variant="outline-primary" onClick={() => handleSetAngle(0)} active={angleType=='Zero'} className="m-2">Zero Angle</Button>
           <Button variant="outline-primary" onClick={() => handleSetAngle(90)} active={angleType=='Right'} className="m-2">Right Angle</Button>
           <Button variant="outline-primary" onClick={() => handleSetAngle(180)} active={angleType=='Straight'} className="m-2">Straight Angle</Button>
@@ -227,6 +226,7 @@ const handleSetAngle = (newAngle) => {
               cursor={dragging ? "grabbing" : "grab"}
               onMouseDown={() => setDragging(true)}
               onTouchStart={() => setDragging(true)}
+              draggable
             />
             <line
               id="line2dummy"
@@ -257,7 +257,7 @@ const handleSetAngle = (newAngle) => {
                   4 * unit
                 } v ${4 * unit}`}
                 stroke="blue"
-                strokeWidth="4"
+                strokeWidth="2"
                 fill="none"
               />
             ) : (
@@ -269,7 +269,7 @@ const handleSetAngle = (newAngle) => {
                   (1 - x) * 4 * unit
                 } ${4 * y * unit}`}
                 stroke="blue"
-                strokeWidth="4"
+                strokeWidth="2"
                 fill="none"
               />
             )}

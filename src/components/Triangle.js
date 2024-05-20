@@ -164,7 +164,7 @@ function Triangle() {
           onTouchStart={() => setDraggingA(true)}
         ></circle>
 <circle
-          id="pointA"
+          id="pointAdummy"
           cx={`${Xa * unit}`}
           cy={`${Ya * unit}`}
           r={`${10 * unit}`}
@@ -186,7 +186,7 @@ function Triangle() {
           id="pointBdummy"
           cx={`${Xb * unit}`}
           cy={`${Yb * unit}`}
-          r={`${1 * unit}`}
+          r={`${10 * unit}`}
           cursor={draggingB ? "grabbing" : "grab"}
           onMouseDown={() => setDraggingB(true)}
           onTouchStart={() => setDraggingB(true)}
@@ -206,7 +206,7 @@ function Triangle() {
           id="pointCdummy"
           cx={`${Xc * unit}`}
           cy={`${Yc * unit}`}
-          r={`${1 * unit}`}
+          r={`${10 * unit}`}
           cursor={draggingC ? "grabbing" : "grab"}
           onMouseDown={() => setDraggingC(true)}
           onTouchStart={() => setDraggingC(true)}
@@ -339,8 +339,8 @@ function Triangle() {
           fontSize={Math.max(10, 3 * unit)}
           fill="blue"
         >
-          {triangleType=="Acute"&&"All angles less that 90°"}
-          {triangleType=="Obtuse"&&"One angle greater that 90°"}
+          {triangleType=="Acute"&&"All angles less than 90°"}
+          {triangleType=="Obtuse"&&"One angle greater than 90°"}
           {triangleType=="Right"&&"One angle equals to 90°"}
         </text>
         {/* instruction */}
