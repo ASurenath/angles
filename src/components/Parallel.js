@@ -397,8 +397,9 @@ function Parallel() {
                 onClick={() => setShow({ ...show, curve: !show.curve })}
                 active={show.curve}
                 title="Angle curve"
+                className="py-0"
               >
-                <span className={show.curve ? "none" : "strikethrough"}>&nbsp;&nbsp;&#9693;&nbsp;&nbsp;</span>
+                <span className={show.curve ? "none" : "strikethrough"} style={{fontSize:'2rem'}}>&nbsp;&#9693;&nbsp;</span>
               </Button>
             </ButtonGroup>
           </div>
