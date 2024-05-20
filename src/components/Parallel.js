@@ -382,7 +382,7 @@ function Parallel() {
                 active={show.letter}
                 title="Angle name"
               >
-                <span style={{textDecoration:`${show.letter ? "none" : "line-through"}`}}>&nbsp;&nbsp;A&nbsp;&nbsp;</span>
+                <span className={show.letter ? "none" : "strikethrough"}>&nbsp;&nbsp;A&nbsp;&nbsp;</span>
               </Button>
               <Button
                 variant="outline-primary"
@@ -390,7 +390,7 @@ function Parallel() {
                 active={show.angle}
                 title="Angle value"
               >
-                <span style={{textDecoration:`${show.angle ? "none" : "line-through"}`}}>&nbsp;&nbsp;45°&nbsp;&nbsp;</span>
+                <span className={show.angle ? "none" : "strikethrough"}>&nbsp;&nbsp;45°&nbsp;&nbsp;</span>
               </Button>
               <Button
                 variant="outline-primary"
@@ -398,7 +398,7 @@ function Parallel() {
                 active={show.curve}
                 title="Angle curve"
               >
-                <span style={{textDecoration:`${show.curve ? "none" : "line-through"}`}}>&nbsp;&nbsp;&#9693;&nbsp;&nbsp;</span>
+                <span className={show.curve ? "none" : "strikethrough"}>&nbsp;&nbsp;&#9693;&nbsp;&nbsp;</span>
               </Button>
             </ButtonGroup>
           </div>

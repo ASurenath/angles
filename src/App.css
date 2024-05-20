@@ -66,9 +66,17 @@ label{
   border-top: 1px solid;
   border-color: inherit;
   
-  -webkit-transform:rotate(-5deg);
-  -moz-transform:rotate(-5deg);
-  -ms-transform:rotate(-5deg);
-  -o-transform:rotate(-5deg);
-  transform:rotate(-5deg);
+  -webkit-transform:rotate(-20deg);
+  -moz-transform:rotate(-20deg);
+  -ms-transform:rotate(-20deg);
+  -o-transform:rotate(-20deg);
+  transform:rotate(-20deg);
+}
+.btn-outline-primary:hover {
+  background-color: white;
+  color: #0d6efd;
+}
+.btn-outline-primary.active:hover {
+  background-color: #0d6efd;
+  color: white;
 }
